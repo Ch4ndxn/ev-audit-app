@@ -56,6 +56,7 @@ export interface AuditFormState {
 }
 
 export interface PhotoSlots {
+  chassis: PhotoSlot | null;
   front: PhotoSlot | null;
   back: PhotoSlot | null;
   left: PhotoSlot | null;

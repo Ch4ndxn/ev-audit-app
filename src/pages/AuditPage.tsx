@@ -46,7 +46,7 @@ const EMPTY_FORM: AuditFormState = {
   actionDetails: '',
   additionalRemarks: '',
 };
-const EMPTY_SLOTS: PhotoSlots = { front: null, back: null, left: null, right: null, damage: null };
+const EMPTY_SLOTS: PhotoSlots = { chassis: null, front: null, back: null, left: null, right: null, damage: null };
 
 const RATING_META: Record<number, { label: string; cls: string }> = {
   1: { label: 'Critical',  cls: 'bg-red-100 border-red-500 text-red-700' },
@@ -152,10 +152,10 @@ export default function AuditPage() {
     if (!form.overallCondition) { showToast('⚠️ Select condition rating'); return; }
     if (!form.immediateAction)  { showToast('⚠️ Select action required status'); return; }
 
-    const missing = (['front','back','left','right'] as const).filter(a => photos[a] === null);
+    const missing = (['chassis','front','back','left','right'] as const).filter(a => photos[a] === null);
     if (missing.length) {
       setMissingPhotos(missing);
-      showToast('⚠️ Add all 4 angle photos');
+      showToast('⚠️ Add chassis number + all 4 angle photos');
       return;
     }
     setMissingPhotos([]);
@@ -165,7 +165,7 @@ export default function AuditPage() {
 
     // Upload photos
     const photoUrls: Record<string, string> = {};
-    const angles = ['front','back','left','right','damage'] as const;
+    const angles = ['chassis','front','back','left','right','damage'] as const;
     for (const angle of angles) {
       const slot = photos[angle];
       if (!slot) continue;
